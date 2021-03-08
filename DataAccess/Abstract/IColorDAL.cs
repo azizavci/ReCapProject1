@@ -5,9 +5,10 @@ using System.Text;
 
 namespace DataAccess.Abstract
 {
-    //sen bir IEntityRepository sin ve çalışma alanın Brand dır
-    public interface ICarDAL:IEntityRepository<Car>
+    //sen bir IEntityRepository sin ve çalışma alanın Color dır
+    public interface IColorDAL:IEntityRepository<Color>
     {
         
     }
 }
+

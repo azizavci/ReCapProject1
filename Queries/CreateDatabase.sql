@@ -1,0 +1,28 @@
+﻿CREATE DATABASE ReCapProject
+
+CREATE TABLE Brands(
+	
+	ID int NOT NULL IDENTITY(1,1) primary key,
+	BRANDNAME varchar(50)
+
+);
+
+CREATE TABLE Colors(
+	
+	ID int NOT NULL IDENTITY(1,1) primary key,
+	COLORNAME varchar(50)
+
+);
+
+CREATE TABLE Cars(
+	
+	ID int NOT NULL IDENTITY(1,1) primary key,
+	BRANDID int,
+	COLORID int,
+	MODELYEAR int,
+	DAILYPRICE float,
+	INFORMATION varchar(50),
+
+	FOREIGN KEY(BRANDID) REFERENCES Brands(Id),
+	FOREIGN KEY(COLORID) REFERENCES Colors(Id)
+);

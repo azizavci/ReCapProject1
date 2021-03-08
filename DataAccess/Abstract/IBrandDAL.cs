@@ -6,8 +6,9 @@ using System.Text;
 namespace DataAccess.Abstract
 {
     //sen bir IEntityRepository sin ve çalışma alanın Brand dır
-    public interface ICarDAL:IEntityRepository<Car>
+    public interface IBrandDAL:IEntityRepository<Brand>
     {
         
     }
 }
+

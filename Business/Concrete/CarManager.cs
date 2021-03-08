@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using DataAccess.Abstract;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
 using System;
@@ -9,36 +10,16 @@ namespace Business.Concrete
 {
     public class CarManager : ICarService
     {
-        InMemoryCarDAL _memoryCarDAL;
+        ICarDAL _carDAL;
 
-        public CarManager(InMemoryCarDAL memoryCarDAL)
+        public CarManager(ICarDAL carDAL)
         {
-            _memoryCarDAL = memoryCarDAL;
-        }
-
-        public void Add(Car car)
-        {
-            _memoryCarDAL.Add(car);
-        }
-
-        public void Delete(Car car)
-        {
-            _memoryCarDAL.Delete(car);
-        }
-
-        public void Update(Car car)
-        {
-            _memoryCarDAL.Update(car);
+            _carDAL = carDAL;
         }
 
         public List<Car> GetAll()
         {
-            return _memoryCarDAL.GetAll(); 
-        }
-
-        public List<Car> GetById(int id)
-        {
-            return _memoryCarDAL.GetById(id);
+            return _carDAL.GetAll();
         }
 
         
