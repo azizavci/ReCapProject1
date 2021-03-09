@@ -1,5 +1,7 @@
-﻿using DataAccess.Abstract;
+﻿using Core.DataAccess.EntityFramework;
+using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,60 +14,26 @@ namespace DataAccess.Concrete.EntityFramework
     //sen bir ICarDAL sın
     //ICarDAL bir IEntityRepository olduğu için 
     //sen IEntityRepository nin metotlarını implement ettin
-    public class EfCarDAL : ICarDAL
+    public class EfCarDAL : EfEntityRepositoryBase<Car, ReCapContext>, ICarDAL
     {
-        public void Add(Car entity)
+        public List<CarDetailDTO> GetCarDetails()
         {
-            //using içerisinde yazdığımız veriler anında garbage collector ü çağırır
-            //context nesnesi bellek maliyeti açısından fazla maliyetlidir 
-            //o yüzden işimiz biter bitmez silmek isteriz
-            //performans açısından artırmış oluruz.belleği hızlıca temizler
-
-            //IDispossable pattern implementation of c#
-            using (ReCapContext context = new ReCapContext())
+            using (ReCapContext context=new ReCapContext())
             {
-                var addedEntity = context.Entry(entity);
-                addedEntity.State = EntityState.Added;
-                context.SaveChanges();
-            }
-        }
-
-        public void Delete(Car entity)
-        {
-            using (ReCapContext context = new ReCapContext())
-            {
-                var deletedEntity = context.Entry(entity);
-                deletedEntity.State = EntityState.Deleted;
-                context.SaveChanges();
-            }
-        }
-
-        public Car Get(Expression<Func<Car, bool>> filter)
-        {
-            using (ReCapContext context = new ReCapContext())
-            {
-                //sadece bir ürün döndürür
-                return context.Set<Car>().SingleOrDefault(filter);
-            }
-        }
-
-        public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
-        {
-            using (ReCapContext context = new ReCapContext())
-            {
-                return filter == null
-                    ? context.Set<Car>().ToList()
-                    : context.Set<Car>().Where(filter).ToList();
-            }
-        }
-
-        public void Update(Car entity)
-        {
-            using (ReCapContext context = new ReCapContext())
-            {
-                var updatedEntity = context.Entry(entity);
-                updatedEntity.State = EntityState.Modified;
-                context.SaveChanges();
+                var result = from cr in context.Cars
+                             join cl in context.Colors
+                             on cr.ColorId equals cl.Id
+                             join b in context.Brands
+                             on cr.BrandId equals b.Id
+                             select new CarDetailDTO
+                             {
+                                 Id = cr.Id,
+                                 BrandName=b.BrandName,
+                                 Information = cr.Information,
+                                 ColorName = cl.ColorName,
+                                 ModelYear = cr.ModelYear
+                             };
+                return result.ToList();
             }
         }
     }
