@@ -15,7 +15,7 @@ namespace ConsoleUI
 
             CarManager carManager = new CarManager(new EfCarDAL());
             var result = carManager.GetCarDetails();
-            if (result.Success == true)
+            if (result.Success)
             {
                 foreach (var car in result.Data)
                 {
