@@ -1,5 +1,8 @@
 ﻿using Business.Abstract;
 using Business.Constants.NorthwindConstants;
+using Business.Validation.FluentValidation;
+using Core.Aspects.AutoFac.Validation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -21,12 +24,10 @@ namespace Business.Concrete
             _carDAL = carDAL;
         }
 
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-            if (car.Information.Length < 2)
-            {
-                return new ErrorResult(Messages.CarNameInvalid);
-            }
+            //business code
             _carDAL.Add(car);
             return new SuccessResult(Messages.CarAdded);
         }

@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants.NorthwindConstants;
+using Business.Validation.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -21,10 +23,8 @@ namespace Business.Concrete
 
         public IResult Add(Brand brand)
         {
-            if (brand.BrandName.Length<2)
-            {
-                return new ErrorResult(Messages.BrandNameInvalid);
-            }
+            ValidationTool.Validate(new BrandValidator(),brand);
+
             _brandDAL.Add(brand);
             return new SuccessResult(Messages.BrandAdded);
         }

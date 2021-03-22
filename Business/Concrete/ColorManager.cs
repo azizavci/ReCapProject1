@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants.NorthwindConstants;
+using Business.Validation.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -21,6 +23,7 @@ namespace Business.Concrete
 
         public IResult Add(Color color)
         {
+            ValidationTool.Validate(new ColorValidator(), color);
             _colorDAL.Add(color);
             return new Result(true, Messages.ColorAdded);
         }
