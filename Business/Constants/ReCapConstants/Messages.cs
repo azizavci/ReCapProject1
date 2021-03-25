@@ -48,9 +48,20 @@ namespace Business.Constants.ReCapConstants
         public static string RentalUpdated = "kira güncellendi!";
         public static string RentalsListed = "kira geçmişi listelendi!";
 
+        //CAR IMAGES MESSAGES
+        public static string CarImageAdded = "araba resmi eklendi!";
+        public static string CarImageDeleted = "araba resmi silindi!";
+        public static string CarImageNotDeleted = "araba resmi silinemedi!";
+        public static string CarImageUpdated = "araba resmi güncellendi!";
+        public static string CarImageNotFound = "araba resmi bulunamadı!";
+        public static string CarNotFound = "araba bulunamadı";
+        public static string CarImageCountLimitExceeded = "araba resmi limiti aşıldı!";
+
+
 
         //SYSTEM MESSAGES
-        internal static string MaintenanceTime = "bakım zamanı";
+        internal static string MaintenanceTime = "bakım zamanı!";
+        internal static string IdError = "hatalı id girişi yaptnız!";
         
     }
 }

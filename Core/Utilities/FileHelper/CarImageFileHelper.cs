@@ -9,36 +9,72 @@ namespace Core.Utilities.FileHelper
 {
     public class CarImageFileHelper
     {
-        static string directory = Directory.GetCurrentDirectory() + @"\wwwroot\";
-        static string path = @"Images\";
         public static string Add(IFormFile file)
         {
-            string extension = Path.GetExtension(file.FileName).ToUpper();
-            string newFileName = Guid.NewGuid().ToString("N") + extension;
-            if (!Directory.Exists(directory + path))
+            var result = newPath(file);
+            try
             {
-                Directory.CreateDirectory(directory + path);
+                var sourcePath = Path.GetTempFileName();
+                if (file.Length > 0)
+                    using (var stream = new FileStream(sourcePath, FileMode.Create))
+                        file.CopyTo(stream);
+                File.Move(sourcePath, result.newPath);
             }
-            using (FileStream fileStream = File.Create(directory + path + newFileName))
+            catch (Exception exception)
             {
-                file.CopyTo(fileStream);
-                fileStream.Flush();
+                return exception.Message;
             }
-            return (path + newFileName).Replace("\\", "/");
+            return result.Path2;
         }
-        public static string Update(IFormFile file, string oldImagePath)
+
+        public static string Update(string sourcePath, IFormFile file)
         {
-            Delete(oldImagePath);
-            return Add(file);
-        }
-        public static IResult Delete(string ImagePath)
-        {
-            string directory = Directory.GetCurrentDirectory() + @"\wwwroot\";
-            if (ImagePath != null)
+            var result = newPath(file);
+            try
             {
-                File.Delete(directory + ImagePath.Replace("/", "\\"));
+                if (sourcePath.Length > 0)
+                {
+                    using (var stream = new FileStream(result.newPath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+                }
+                File.Delete(sourcePath);
             }
-            return new SuccessResult("Silme islemi başarılı");
+            catch (Exception exception)
+            {
+                return exception.Message;
+            }
+            return result.Path2;
+        }
+
+        public static IResult Delete(string path)
+        {
+            try
+            {
+                File.Delete(path);
+            }
+            catch (Exception exception)
+            {
+                return new ErrorResult(exception.Message);
+            }
+
+            return new SuccessResult();
+        }
+
+        public static (string newPath, string Path2) newPath(IFormFile file)
+        {
+            FileInfo ff = new FileInfo(file.FileName);
+            string fileExtension = ff.Extension;
+
+            var newPath = Guid.NewGuid() + fileExtension;
+
+
+            string path = Environment.CurrentDirectory + @"\wwwroot\Images";
+
+            string result = $@"{path}\{newPath}";
+
+            return (result, $"\\Images\\{newPath}");
         }
     }
 }
