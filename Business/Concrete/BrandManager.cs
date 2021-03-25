@@ -1,5 +1,5 @@
 ﻿using Business.Abstract;
-using Business.Constants.NorthwindConstants;
+using Business.Constants.ReCapConstants;
 using Business.Validation.FluentValidation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities;

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Business.Constants.NorthwindConstants
+namespace Business.Constants.ReCapConstants
 {
     public class Messages
     {
@@ -27,6 +27,27 @@ namespace Business.Constants.NorthwindConstants
         public static string ColorUpdated = "renk güncellendi!";
         public static string ColorNameInvalid = "renk ismi geçersiz!";
         public static string ColorsListed = "renkler listelendi";
+
+        //USER MESSAGES
+        public static string UserAdded = "kullanıcı eklendi!";
+        public static string UserDeleted = "kullanıcı silindi!";
+        public static string UserUpdated = "kullanıcı güncellendi!";
+        public static string UserNameInvalid = "kullanıcı ismi geçersiz!";
+        public static string UsersListed = "kullanıcılar listelendi";
+
+        //CUSTOMER MESSAGES
+        public static string CustomerAdded = "müşteri eklendi!";
+        public static string CustomerDeleted = "müşteri silindi!";
+        public static string CustomerUpdated = "müşteri güncellendi!";
+        public static string CustomerNameInvalid = "müşteri ismi geçersiz!";
+        public static string CustomersListed = "müşteriler listelendi";
+
+        //RENTAL MESSAGES
+        public static string RentalAdded = "kira eklendi!";
+        public static string RentalDeleted = "kira silindi!";
+        public static string RentalUpdated = "kira güncellendi!";
+        public static string RentalsListed = "kira geçmişi listelendi!";
+
 
         //SYSTEM MESSAGES
         internal static string MaintenanceTime = "bakım zamanı";

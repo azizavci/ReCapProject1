@@ -26,3 +26,34 @@ CREATE TABLE Cars(
 	FOREIGN KEY(BRANDID) REFERENCES Brands(Id),
 	FOREIGN KEY(COLORID) REFERENCES Colors(Id)
 );
+
+CREATE TABLE Users(
+	
+	ID int NOT NULL IDENTITY(1,1) primary key,
+	FIRSTNAME varchar(50),
+	LASTNAME varchar(50),
+	EMAIL varchar(100),
+	USERPASSWORD varchar(50)
+
+);
+
+CREATE TABLE Customers(
+	
+	ID int NOT NULL IDENTITY(1,1) primary key,
+	USERID int,
+	COMPANYNAME varchar(50)
+
+);
+
+CREATE TABLE Rentals(
+	
+	ID int NOT NULL IDENTITY(1,1) primary key,
+	BRANDID int,
+	CUSTOMERID int,
+	RENTALDATE datetime,
+	RETURNDATE datetime
+	
+
+	FOREIGN KEY(BRANDID) REFERENCES Brands(ID),
+	FOREIGN KEY(CUSTOMERID) REFERENCES Colors(ID)
+);
