@@ -1,18 +1,5 @@
 ﻿CREATE DATABASE ReCapProject
 
-CREATE TABLE Brands(
-	
-	ID int NOT NULL IDENTITY(1,1) primary key,
-	BRANDNAME varchar(50)
-
-);
-
-CREATE TABLE Colors(
-	
-	ID int NOT NULL IDENTITY(1,1) primary key,
-	COLORNAME varchar(50)
-
-);
 
 CREATE TABLE Cars(
 	
@@ -27,14 +14,44 @@ CREATE TABLE Cars(
 	FOREIGN KEY(COLORID) REFERENCES Colors(Id)
 );
 
-CREATE TABLE Users(
+CREATE TABLE [dbo].[Brands](
 	
 	ID int NOT NULL IDENTITY(1,1) primary key,
-	FIRSTNAME varchar(50),
-	LASTNAME varchar(50),
-	EMAIL varchar(100),
-	USERPASSWORD varchar(50)
+	BRANDNAME varchar(50)
 
+);
+
+CREATE TABLE [dbo].[Colors](
+	
+	ID int NOT NULL IDENTITY(1,1) primary key,
+	COLORNAME varchar(50)
+
+);
+
+
+CREATE TABLE [dbo].[Users]
+(
+	[ID] INT NOT NULL PRIMARY KEY IDENTITY, 
+    	[FIRSTNAME] VARCHAR(50) NOT NULL, 
+    	[LASTNAME] VARCHAR(50) NOT NULL, 
+    	[EMAIL] VARCHAR(100) NOT NULL, 
+    	[PASSWORDHASH] VARBINARY(500) NOT NULL, 
+    	[PASSWORDSALT] VARBINARY(500) NOT NULL, 
+    	[STATUS] BIT NOT NULL
+);
+
+
+CREATE TABLE [dbo].[OperationClaims]
+(
+	[ID] INT NOT NULL PRIMARY KEY IDENTITY, 
+    	[NAME] VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE [dbo].[UserOperationClaims]
+(
+	[ID] INT NOT NULL PRIMARY KEY IDENTITY, 
+    	[USERID] INT NULL, 
+    	[OPERATIONCLAIMID] INT NULL
 );
 
 CREATE TABLE Customers(
@@ -45,6 +62,7 @@ CREATE TABLE Customers(
 
 );
 
+
 CREATE TABLE Rentals(
 	
 	ID int NOT NULL IDENTITY(1,1) primary key,
@@ -53,10 +71,10 @@ CREATE TABLE Rentals(
 	RENTALDATE datetime,
 	RETURNDATE datetime
 	
-
 	FOREIGN KEY(BRANDID) REFERENCES Brands(ID),
 	FOREIGN KEY(CUSTOMERID) REFERENCES Colors(ID)
 );
+
 
 CREATE TABLE CarImages(
 	
