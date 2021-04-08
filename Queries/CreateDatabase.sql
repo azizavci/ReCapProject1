@@ -58,7 +58,7 @@ CREATE TABLE Customers(
 	
 	ID int NOT NULL IDENTITY(1,1) primary key,
 	USERID int,
-	COMPANYNAME varchar(50)
+	CUSTOMERNAME varchar(50)
 
 );
 

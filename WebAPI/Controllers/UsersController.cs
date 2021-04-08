@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,26 +11,25 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ColorsController : ControllerBase
+    public class UsersController : ControllerBase
     {
-        IColorService _colorService;
+        IUserService _userService;
 
-        public ColorsController(IColorService colorService)
+        public UsersController(IUserService userService)
         {
-            _colorService = colorService;
+            _userService = userService;
         }
 
-        [HttpGet("getall")]
-        public IActionResult GetAll()
+        [HttpPost("add")]
+        public IActionResult Add(User user)
         {
-            var result = _colorService.GetAll();
+            var result = _userService.Add(user);
             if (result.Success)
             {
                 return Ok(result);
             }
+
             return BadRequest(result);
         }
-
-        //buraya IService e ait diğer fonksiyonlara göre http işlemleri yapacağız
     }
 }

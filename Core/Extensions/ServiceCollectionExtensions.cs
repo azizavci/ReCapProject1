@@ -13,7 +13,7 @@ namespace Core.Extensions
         {
             foreach (var module in modules)
             {
-               module.Load(serviceCollection);
+               //module.Load(serviceCollection);
             }
 
             return ServiceTool.Create(serviceCollection);

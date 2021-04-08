@@ -47,6 +47,9 @@ namespace Business.Constants.ReCapConstants
         public static string RentalDeleted = "kira silindi!";
         public static string RentalUpdated = "kira güncellendi!";
         public static string RentalsListed = "kira geçmişi listelendi!";
+        public static string RentalNotReturned = "araç teslim edilmedi!";
+
+
 
         //CAR IMAGES MESSAGES
         public static string CarImageAdded = "araba resmi eklendi!";
